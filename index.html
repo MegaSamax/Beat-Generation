@@ -8,6 +8,14 @@
     <title>Beat Generation!</title>
 
     <style>
+        body {
+            background-color: #1a1a1a;
+        }
+
+        img {
+            padding: 10px 0 10px 0;
+        }
+
         ul {
             list-style: none;
         }
@@ -18,7 +26,12 @@
             border-radius: 50%;
             line-height: 50px;
             text-align: center;
-            color: #000000;
+            /* color: #000000; */
+            font-weight: bolder;
+            font-family: Arial;
+
+            /* New button */
+            background: rgba(255, 255, 255, 0);
         }
 
         ul.buttons li:not(:last-of-type) {
@@ -26,25 +39,34 @@
         }
 
         #a {
-            background: rgba(60, 219, 78, 0.5);
+            /* background: rgba(60, 219, 78, 0.5); */
+            border: 2px solid rgba(60, 219, 78);
+            color: rgba(60, 219, 78);
         }
 
         #b {
-            background: rgba(208, 66, 66, 0.5);
+            /* background: rgba(208, 66, 66, 0.5); */
+            border: 2px solid rgba(208, 66, 66);
+            color: rgba(208, 66, 66);
         }
 
         #x {
-            background: rgba(64, 204, 208, 0.5);
+            /* background: rgba(64, 204, 208, 0.5); */
+            border: 2px solid rgba(64, 204, 208);
+            color: rgba(64, 204, 208);
         }
 
         #y {
-            background: rgba(236, 219, 51, 0.5);
+            /* background: rgba(236, 219, 51, 0.5); */
+            border: 2px solid rgba(236, 219, 51);
+            color: rgba(236, 219, 51);
         }
 
         .box {
-            width: 20px;
-            height: 20px;
-            background: #000000;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            border: 2px solid white;
             position: absolute;
             right: 0;
             top: 20px;
@@ -64,6 +86,9 @@
 </head>
 
 <body>
+
+    <img src="./assets/logo.png" width=900px>
+
     <div class="gameArea">
         <ul class="buttons">
             <li id="a">A</li>
@@ -112,23 +137,6 @@
             console.log(`${event.detail.buttonIndex} Button Pressed`);
             switch (event.detail.buttonIndex) {
                 case 0:
-                    document.getElementById('a').style.background = 'rgba(60, 219, 78, 1)';
-                    break;
-                case 1:
-                    document.getElementById('b').style.background = 'rgba(208, 66, 66, 1)';
-                    break;
-                case 2:
-                    document.getElementById('x').style.background = 'rgba(64, 204, 208, 1)';
-                    break;
-                case 3:
-                    document.getElementById('y').style.background = 'rgba(236, 219, 51, 1)';
-                    break;
-            }
-        });
-        document.addEventListener("gamepadButtonUp", (event) => {
-            console.log(`${event.detail.buttonIndex} Button Released`);
-            switch (event.detail.buttonIndex) {
-                case 0:
                     document.getElementById('a').style.background = 'rgba(60, 219, 78, 0.5)';
                     break;
                 case 1:
@@ -139,6 +147,23 @@
                     break;
                 case 3:
                     document.getElementById('y').style.background = 'rgba(236, 219, 51, 0.5)';
+                    break;
+            }
+        });
+        document.addEventListener("gamepadButtonUp", (event) => {
+            console.log(`${event.detail.buttonIndex} Button Released`);
+            switch (event.detail.buttonIndex) {
+                case 0:
+                    document.getElementById('a').style.background = 'rgba(60, 219, 78, 0)';
+                    break;
+                case 1:
+                    document.getElementById('b').style.background = 'rgba(208, 66, 66, 0)';
+                    break;
+                case 2:
+                    document.getElementById('x').style.background = 'rgba(64, 204, 208, 0)';
+                    break;
+                case 3:
+                    document.getElementById('y').style.background = 'rgba(236, 219, 51, 0)';
                     break;
             }
         });
