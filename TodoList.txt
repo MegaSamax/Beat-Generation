@@ -1,0 +1,6 @@
+To Do: 
+- Way to Select Song
+- Clean up Bpm counter 
+- Add start timer
+- Comment Code / Remove console logs
+- Turn Back on beat detector console Logs - beatdetektor.js
