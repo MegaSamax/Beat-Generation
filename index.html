@@ -6,17 +6,39 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home Page</title>
+
+    <style>
+        body {
+            background-color: #1a1a1a;
+            overflow: hidden;
+            color: white;
+            flex-direction: column;
+            display: flex;        }
+    </style>
 </head>
 
 <body>
-    homepage
+    <!-- Logo -->
+    <img src="logo.png" width=900px>
 
-    Logo
+    <h1>What is Beat Generation?</h1>
+    <p>
+        Plug in a window/xbox controller and press the button when the cirlcle lines up with corrsponiding letter oin the game screen. 
+        the game genates beats based on the songs beat per minute. 
+    </p>
+    
+    <form action="">
+        <label for="cars">Choose a song:</label>
+        <select id="songChoice" class="songChoice">
+            <option value="1">Song 1</option>
+            <option value="2">Song 2</option>
+            <option value="3">Song 3</option>
+            <option value="4">Song 4</option>
+        </select>
 
-    what is the game?
-
-    Choose Song Drop Down
-
+        <!-- <br><br> -->
+        <input type="submit" value="Play">
+    </form>
     <a href="/game">Go To Game</a>
 
 </body>
