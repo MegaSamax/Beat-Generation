@@ -7,39 +7,52 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home Page</title>
 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+
     <style>
         body {
             background-color: #1a1a1a;
             overflow: hidden;
             color: white;
             flex-direction: column;
-            display: flex;        }
+            display: flex;  
+            align-items: center;      
+        }
+        img { 
+
+        }
     </style>
 </head>
 
 <body>
     <!-- Logo -->
-    <img src="logo.png" width=900px>
+    <img class="p-2" src="logo.png" width=900px>
 
-    <h1>What is Beat Generation?</h1>
-    <p>
-        Plug in a window/xbox controller and press the button when the cirlcle lines up with corrsponiding letter oin the game screen. 
-        the game genates beats based on the songs beat per minute. 
-    </p>
+    <div class="p-2 border border-3 rounded"> 
+        <h1>What is Beat Generation?</h1>
+        <p >
+            Plug in a window/xbox controller and press the button when the cirlcle lines up with corrsponiding letter oin the game screen. 
+            the game genates beats based on the songs beat per minute. 
+        </p>
+    </div>
     
-    <form action="">
-        <label for="cars">Choose a song:</label>
-        <select id="songChoice" class="songChoice">
-            <option value="1">Song 1</option>
-            <option value="2">Song 2</option>
-            <option value="3">Song 3</option>
-            <option value="4">Song 4</option>
+    <!--  -->
+    <form class="p-2" action="">
+        <label for="songs">Choose a song:</label>
+        <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+            <option value="1">Funtime</option>
+            <option value="2">Kick It Up</option>
+            <option value="3">All My Bestfriends Are Metalheads</option>
+            <option value="4">She Wolf</option>
         </select>
-
-        <!-- <br><br> -->
         <input type="submit" value="Play">
     </form>
-    <a href="/game">Go To Game</a>
+    
+        <a href="/game">Go To Game</a>
 
 </body>
 
