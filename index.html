@@ -7,11 +7,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home Page</title>
 
+    <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-        crossorigin="anonymous"></script>
+        crossorigin="anonymous">
+    </script>
+
+    <!-- Jquery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+        integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <style>
         body {
@@ -22,8 +29,15 @@
             display: flex;  
             align-items: center;      
         }
-        img { 
-
+        .infoBox {
+            margin-top: 40px;
+            margin-bottom: 40px;
+        }
+        form {
+            max-width: 691px;
+        }
+        img {
+            margin-top: 40px;
         }
     </style>
 </head>
@@ -31,29 +45,49 @@
 <body>
     <!-- Logo -->
     <img class="p-2" src="logo.png" width=900px>
-
-    <div class="p-2 border border-3 rounded"> 
-        <h1>What is Beat Generation?</h1>
-        <p >
-            Plug in a window/xbox controller and press the button when the cirlcle lines up with corrsponiding letter oin the game screen. 
-            the game genates beats based on the songs beat per minute. 
-        </p>
-    </div>
     
-    <!--  -->
-    <form class="p-2" action="">
-        <label for="songs">Choose a song:</label>
-        <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
-            <option value="1">Funtime</option>
-            <option value="2">Kick It Up</option>
-            <option value="3">All My Bestfriends Are Metalheads</option>
-            <option value="4">She Wolf</option>
+    <!-- Select Song -->
+    <form id="selectForm" class="p-2" action="">
+        <div class="p-2 border border-3 rounded infoBox">
+            <h1>What is Beat Generation?</h1>
+            <p>
+                Plug in a window/xbox controller and press the button when the cirlcle lines up with corrsponiding letter oin
+                the game screen.
+                the game genates beats based on the songs beat per minute.
+            </p>
+        </div>
+
+        <label for="songSelection">Choose a song:</label>
+        <select id="songSelection" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+            <option value="0">Funtime</option>
+            <option value="1">Kick It Up</option>
+            <option value="2">All My Bestfriends Are Metalheads</option>
+            <option value="3">She Wolf</option>
         </select>
-        <input type="submit" value="Play">
+        
+        <label for="diffSelection">Choose a difficultly:</label>
+        <select id="diffSelection" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+            <option value="1">Easy</option>
+            <option value="2">Hard</option>
+        </select>
+        <input class="btn btn-success" style="width: 100%;" type="submit" value="Play">
     </form>
     
-        <a href="/game">Go To Game</a>
+    <script>
+        $("#selectForm").submit(
+            function(e) {
+                // Store Selected Song
+                localStorage.setItem('song', $('#songSelection').val())
+                localStorage.setItem('diff', $('#diffSelection').val())
 
+                // Redirect to Game page
+                window.location.href='/game'
+
+                // Run JavaScript instead of submitting the form
+                e.preventDefault();
+            }
+        );
+    </script>
 </body>
 
 </html>

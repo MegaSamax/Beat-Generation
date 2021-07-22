@@ -14,6 +14,7 @@
 
         img {
             padding: 10px 0 10px 0;
+            display: inline-block;
         }
 
         ul {
@@ -89,8 +90,28 @@
 
         .gameArea {
             width: 900px;
-            height: 350px;
+            height: 330px;
             position: relative;
+        }
+
+        .scoreBox {
+            color: white;
+            display: inline-block;
+            float: right;
+            line-height: 17px;
+            padding-right: 20px;
+            font-size: 40px;
+            font-family: sans-serif;
+        }
+
+        #timer {
+            font-size: 100px;
+            font-family: sans-serif;
+            color: white;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
         }
     </style>
 
@@ -105,22 +126,17 @@
 </head>
 
 <body>
-    <!-- Audio Control -->
-    <!-- Song 1 -->
-    <!-- <audio src="funtime.mp3" id="song"></audio>
-    <audio src="funtime.mp3" id="song2"></audio> -->
-    <!-- Song 2 -->
-    <!-- <audio src="15. Kick it up by Paul Gordon.mp3" id="song"></audio>
-    <audio src="15. Kick it up by Paul Gordon.mp3" id="song2"></audio> -->
-    <!-- Song 3 -->
-    <audio src="08. All My Best Friends Are Metalheads by Less than Jake.mp3" id="song"></audio>
-    <audio src="08. All My Best Friends Are Metalheads by Less than Jake.mp3" id="song2"></audio>
-    <!-- Song 4 -->
-    <!-- <audio src="She Wolf.mp3" id="song"></audio>
-    <audio src="She Wolf.mp3" id="song2"></audio> -->
+    <!-- Timer -->
+    <div id="timer">
+        Click to Start
+    </div>
 
-    <p>
-        <b>BPM: </b><span id="bpm"></span>
+    <!-- Audio Control -->
+    <audio id="song"></audio>
+    <audio id="song2"></audio>
+
+    <p class="scoreBox">
+        <b>Score: </b><span id="score">0</span>
     </p>
 
     <img src="logo.png" width=900px>
@@ -132,11 +148,12 @@
             <li id="x">X</li>
             <li id="y">Y</li>
         </ul>
-
     </div>
 
     <!-- Check if Gamepad -->
     <script>
+        var score = 0;
+
         // Allows Gamepad Button input loggin - https://ui.dev/web-gamepad-api/
         let gamepad = null;
         function updateGamepad() {
@@ -249,13 +266,24 @@
 
         // Confirm Beat Hit
         function checkCollison(button) {
+            var hasHit = false; 
+
             $('.beat').each(function () {
                 // Confirm Collison
                 if (recthit('#' + button, $(this))) {
                     console.log('beat hit');
+                    score++; // Increase Score
+                    $('#score').html(score) // Updates Score Span
                     $(this).remove();
-                }
+                    hasHit = true;
+                }  
             });
+
+            // If wrong Button and Colliding
+            if (!hasHit) { 
+                score--; // decrease Score
+                $('#score').html(score) // Updates Score Span
+            }
         }
 
         // Delete a Beat
@@ -263,16 +291,31 @@
             $('.beat').each(function () {
                 if ($(this).css('left') == '-50px') {
                     $(this).remove();
+                    score--; // decrease Score
+                    $('#score').html(score) // Updates Score Span
                     console.log('beat Deleted');
                 }
             });
         }
 
-        var interval;
+        var interval, diff = 1;
 
+        // Start on Click
         function startGame() {
             main();
             setInterval(destroyBeat, 1000);
+            
+            // Start Timer
+            $('#timer').html('5');
+            var currentTime = 5;
+            var countdown = setInterval(function () {
+                currentTime--;
+                if (currentTime == 0) {
+                    $('#timer').css('display', 'none');
+                    clearInterval(countdown);
+                }
+                $('#timer').html(currentTime);
+            }, 1000)
         }
 
         document.addEventListener('gameBpm', function (e) {
@@ -281,15 +324,21 @@
                 clearInterval(interval);
                 console.log('Interval Cleared');
             }
-            interval = setInterval(spawnBeat, ((e.detail / 60) * 1000) - 60);
+            interval = setInterval(spawnBeat, (((e.detail / 60) * 1000) - 60)/diff);
             console.log(e.detail);
         });
 
         document.addEventListener('click', startGame);
 
-        // Timer for Spawning Beat
+        // On Load
         $(function () {
+            // Get song and difficult from local storage
+            var selectedSong = localStorage.getItem('song');
+            diff = localStorage.getItem('diff');
 
+            // builds location of selected song
+            $('#song').attr('src', selectedSong+'.mp3');
+            $('#song2').attr('src', selectedSong + '.mp3');
         });
 
     </script>
