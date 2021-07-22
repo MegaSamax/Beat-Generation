@@ -298,7 +298,7 @@
             });
         }
 
-        var interval, diff = 1;
+        var interval, diff = 1, songEnded = false;
 
         // Start on Click
         function startGame() {
@@ -319,13 +319,15 @@
         }
 
         document.addEventListener('gameBpm', function (e) {
-            console.log(e);
-            if (interval != undefined || interval != null) {
-                clearInterval(interval);
-                console.log('Interval Cleared');
+            if (!songEnded) {
+                console.log(e);
+                if (interval != undefined || interval != null) {
+                    clearInterval(interval);
+                    console.log('Interval Cleared');
+                }
+                interval = setInterval(spawnBeat, (((e.detail / 60) * 1000) - 60)/diff);
+                console.log(e.detail);
             }
-            interval = setInterval(spawnBeat, (((e.detail / 60) * 1000) - 60)/diff);
-            console.log(e.detail);
         });
 
         document.addEventListener('click', startGame);
@@ -340,6 +342,19 @@
             $('#song').attr('src', selectedSong+'.mp3');
             $('#song2').attr('src', selectedSong + '.mp3');
         });
+
+        // On Song End
+        song.onended = function () {
+            clearInterval(interval);
+            songEnded = true;
+        };
+
+        song2.onended = function () {
+            setInterval(function () {
+                alert("Score: " + score);
+                window.location.href = '/';
+            }, 2000)
+        };
 
     </script>
 </body>
